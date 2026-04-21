@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Genesys x Deloitte | Hidden CX Opportunities</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg-soft: #121933;
+      --panel: rgba(255,255,255,0.06);
+      --panel-strong: rgba(255,255,255,0.1);
+      --text: #f3f6ff;
+      --muted: #b7c1dd;
+      --line: rgba(255,255,255,0.12);
+      --brand: #ff5c35;
+      --brand-2: #6ee7f9;
+      --success: #8bffb0;
+      --warning: #ffd66e;
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --radius: 22px;
+      --max: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(110,231,249,0.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(255,92,53,0.16), transparent 25%),
+        linear-gradient(180deg, #08101f 0%, #0b1020 55%, #0e1730 100%);
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(calc(100% - 32px), var(--max)); margin: 0 auto; }
+    .section { padding: 84px 0; }
+    .section-tight { padding: 56px 0; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(8, 16, 31, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      min-height: 72px;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+    .logo-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--brand), #ff885f);
+      box-shadow: var(--shadow);
+      font-size: 14px;
+      font-weight: 900;
+    }
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: var(--muted);
+      font-size: 14px;
+      transition: color .2s ease;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 14px 20px;
+      font-weight: 700;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand), #ff875f);
+      color: white;
+      box-shadow: 0 18px 40px rgba(255,92,53,0.28);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.07);
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .hero {
+      padding: 72px 0 46px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      color: var(--brand-2);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+    }
+    .hero p {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 760px;
+      margin: 18px 0 28px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 14px;
+    }
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+    }
+    .stat strong {
+      display: block;
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+    .stat span { color: var(--muted); font-size: 14px; }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.04));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .signal-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .signal {
+      display: flex;
+      gap: 12px;
+      align-items: start;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .signal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      margin-top: 7px;
+      flex: 0 0 auto;
+    }
+    .dot-red { background: #ff7a7a; }
+    .dot-orange { background: #ffbf69; }
+    .dot-green { background: #7ef29a; }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 30px;
+    }
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.8rem, 3vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+    .section-head p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 700px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 18px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 18px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .card h3, .card h4 {
+      margin: 0 0 10px;
+      letter-spacing: -0.02em;
+    }
+    .card p { margin: 0; color: var(--muted); }
+
+    .problem-table,
+    .signals-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 20px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .problem-table th,
+    .problem-table td,
+    .signals-table th,
+    .signals-table td {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    .problem-table th,
+    .signals-table th {
+      color: var(--text);
+      background: rgba(255,255,255,0.04);
+      font-size: 14px;
+    }
+    .problem-table td,
+    .signals-table td { color: var(--muted); }
+    .problem-table tr:last-child td,
+    .signals-table tr:last-child td { border-bottom: 0; }
+
+    .highlight {
+      background: linear-gradient(135deg, rgba(255,92,53,0.15), rgba(110,231,249,0.08));
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 20px 22px;
+      border-radius: 22px;
+      color: var(--text);
+    }
+    .highlight strong { color: white; }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, rgba(255,92,53,0.2), rgba(110,231,249,0.16));
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 20px;
+    }
+
+    .partner-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+    .partner-box {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 20px;
+      min-height: 220px;
+    }
+    .partner-box h3 { margin-top: 0; }
+    .partner-box ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .cases-toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+    .chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 700;
+      transition: .2s ease;
+    }
+    .chip.active,
+    .chip:hover { background: rgba(255,255,255,0.12); }
+
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0,1fr));
+      gap: 16px;
+    }
+    .case-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .case-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,0.2);
+    }
+    .case-top {
+      padding: 22px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+      border-bottom: 1px solid var(--line);
+    }
+    .case-tag {
+      display: inline-flex;
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--bg);
+      background: var(--warning);
+      margin-bottom: 12px;
+    }
+    .case-body {
+      padding: 20px 22px 22px;
+      display: grid;
+      gap: 12px;
+      color: var(--muted);
+    }
+    .case-body strong { color: var(--text); }
+    .case-link {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--brand-2);
+      font-weight: 700;
+    }
+
+    .questions {
+      display: grid;
+      gap: 12px;
+    }
+    .q-item {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px 18px;
+      display: flex;
+      gap: 12px;
+      align-items: start;
+    }
+    .q-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,92,53,0.18);
+      color: #ffd1c5;
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    .cta {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(255,92,53,0.2), rgba(110,231,249,0.12));
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 30px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+    }
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .cta ul {
+      margin: 16px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 34px 0 60px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .footer-line {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hidden { display: none !important; }
+
+    @media (max-width: 1100px) {
+      .hero-grid,
+      .cta-grid,
+      .partner-wrap,
+      .cases-grid,
+      .grid-3,
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      .hero-stats { grid-template-columns: 1fr; }
+      .section-head { align-items: start; flex-direction: column; }
+    }
+
+    @media (max-width: 760px) {
+      .nav-inner { padding: 10px 0; align-items: start; }
+      .nav-links { display: none; }
+      .hero { padding-top: 44px; }
+      .section { padding: 64px 0; }
+      .cta { padding: 24px; }
+      .problem-table, .signals-table { display: block; overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="logo" href="#top">
+        <span class="logo-badge">GX</span>
+        <span>Genesys × Deloitte</span>
+      </a>
+      <div class="nav-links">
+        <a href="#problema">Problema</a>
+        <a href="#solucion">Solución</a>
+        <a href="#alianza">Alianza</a>
+        <a href="#senales">Señales</a>
+        <a href="#casos">Casos</a>
+        <a href="#preguntas">Preguntas</a>
+      </div>
+      <a class="btn btn-primary" href="#cta-final">Identificar oportunidades</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">Experience Orchestration · AI · Pipeline Conjunto</div>
+        <h1>Todos los clientes ya son omnicanales.<br>¿Tu experiencia lo es?</h1>
+        <p>
+          Una landing page pensada para identifica oportunidades de CX, que
+          conecta señales de negocio con problemas reales y distingue a Genesys como 
+          la plataforma #1 en el mercado enfocada en la orquestación de sistemas con impacto medible 
+          y a la vanguardia de nuevas tecnoligias como es la IA.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#casos">Ver casos de éxito</a>
+          <button class="btn btn-secondary" id="scrollSignals">Explorar señales de oportunidad</button>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <strong>+AI</strong>
+            <span>Conversacional, copilots, virtual agents, routing predictivo y journey insights</span>
+          </div>
+          <div class="stat">
+            <strong>1 plataforma</strong>
+            <span>Voz, chat, digital, workforce engagement y orquestación de experiencia</span>
+          </div>
+          <div class="stat">
+            <strong>2 aliados</strong>
+            <span>Deloitte diseña la transformación; Genesys la activa y escala</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3 style="margin:0 0 8px; font-size: 1.4rem;">Lo que debemos detectar</h3>
+        <p style="margin:0; color: var(--muted);">No busquemos solo necesidades declaradas. Buscamos señales de fricción, tiempos sin respuestas y malas experiencias de clientes.</p>
+        <div class="signal-list">
+          <div class="signal">
+            <span class="signal-dot dot-red"></span>
+            <div><strong>Señales Altas</strong><br><span style="color:var(--muted)">CSAT (Puntuación de Satisfacción del Cliente) bajo, AHT (Tiempo Promedio de la Operación) alto, alto porcentaje de abandono, baja conversión de interacciones.</span></div>
+          </div>
+          <div class="signal">
+            <span class="signal-dot dot-orange"></span>
+            <div><strong>Señales Medias</strong><br><span style="color:var(--muted)">Clientes que cambian de canal, repiten información o escalan a voz.</span></div>
+          </div>
+          <div class="signal">
+            <span class="signal-dot dot-green"></span>
+            <div><strong>Señales Bajas</strong><br><span style="color:var(--muted)">Bots que no entienden intención, journeys rotos, datos desconectados.</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="problema">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>El problema no es el canal.<br>Es la experiencia fragmentada.</h2>
+        </div>
+        <p>
+          Muchas empresas creen que ya resolvieron CX porque añadieron más canales, bots o tienen sistemas de autoservicio.
+          Pero por alguna razón el cliente sigue sintiendo que dentro de su journey existe fricción cuando cambia de canal,
+          repite contexto o no consigue resolver de forma oportuna.
+        </p>
+      </div>
+
+      <table class="problem-table" aria-label="Problema real de CX">
+        <thead>
+          <tr>
+            <th>Lo que el cliente dice</th>
+            <th>Lo que deberiamos preguntarle</th>
+            <th>Si la respuesta es NEGATIVA - Impacto de negocio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>“Tenemos muchos canales digitales”</td>
+            <td>¿Existe trazabilidad entre los canales y comparten contexto?</td>
+            <td>Más esfuerzo del cliente, más escalaciones y más costes</td>
+          </tr>
+          <tr>
+            <td>“Tenemos bots”</td>
+            <td>¿Los bots tienen la capacidad de responder a todas las preguntas, a transferir 
+                con un agente humano cuando es necesario y compartir el contexto previo?</td>
+            <td>Baja contención, mayor volumen a agentes y frustración</td>
+          </tr>
+          <tr>
+            <td>“Tenemos buena CX”</td>
+            <td>¿El journey completo se mide y esta optimizado?</td>
+            <td>Pérdida de lealtad, ingresos y confianza</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="grid-3" style="margin-top: 20px;">
+        <div class="card">
+          <div class="feature-icon">🔴</div>
+          <h3>Síntoma visible</h3>
+          <p>Sube el volumen de llamadas, baja la satisfacción o cae la conversión digital.</p>
+        </div>
+        <div class="card">
+          <div class="feature-icon">🟠</div>
+          <h3>Causa Principal</h3>
+          <p>Canales, datos y decisiones operan en silos; el journey no está orquestado.</p>
+        </div>
+        <div class="card">
+          <div class="feature-icon">🟢</div>
+          <h3>Oportunidad real</h3>
+          <p>Unificar datos, journeys y acciones con AI para transformar la experiencia de punta a punta.</p>
+        </div>
+      </div>
+
+      <div class="highlight" style="margin-top:20px;">
+        <strong>Reframe para la conversación:</strong> más canales no significan mejor experiencia. La ventaja real está en conectar cada interacción, decidir mejor y actuar en tiempo real.
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="solucion">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>La solución: Genesys Cloud CX</h2>
+        </div>
+        <p>
+          Genesys no se limita a gestionar interacciones. Orquesta experiencias completas con omnicanalidad,
+          AI conversacional, automation, journey analytics y workforce engagement en una sola plataforma.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="feature-icon">💬</div>
+          <h3>Omnichannel</h3>
+          <p>Une voz, chat, email, mensajería, social y autoservicio en una sola operación conectada.</p>
+        </div>
+        <div class="card">
+          <div class="feature-icon">🤖</div>
+          <h3>AI Conversacional</h3>
+          <p>Virtual agents, bots, copilots y automatización inteligente para elevar contención y eficiencia.</p>
+        </div>
+        <div class="card">
+          <div class="feature-icon">🧭</div>
+          <h3>Journey Management</h3>
+          <p>Hace visibles los puntos de fricción, los cambios de canal y las oportunidades de optimización.</p>
+        </div>
+        <div class="card">
+          <div class="feature-icon">📈</div>
+          <h3>Predictive Engagement</h3>
+          <p>Anticipa intención, detecta comportamiento y activa la mejor siguiente acción.</p>
+        </div>
+        <div class="card">
+          <div class="feature-icon">🎯</div>
+          <h3>Predictive Routing</h3>
+          <p>Conecta al cliente con el mejor recurso en tiempo real para mejorar resolución y experiencia.</p>
+        </div>
+        <div class="card">
+          <div class="feature-icon">👥</div>
+          <h3>Workforce Engagement</h3>
+          <p>Optimiza desempeño, coaching, calidad y operación del equipo con una visión integrada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="alianza">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Why Deloitte + Genesys</h2>
+        </div>
+        <p>
+          El 25 de febrero del 2025 se publico nuestra alianza, que tiene como enfoque que la nuestra asociación
+          permite a Deloitte Digital y Genesys crear un enfoque holístico y centrado en el cliente, que combina tecnología,
+           datos y comprensión humana.
+        </p>
+      </div>
+
+      <div class="partner-wrap">
+        <div class="partner-box">
+          <h3>Deloitte aporta</h3>
+          <ul>
+            <li>Estrategia de CX y transformación</li>
+            <li>Consultoría, rediseño de procesos y change management</li>
+            <li>Integración con ecosistemas empresariales</li>
+            <li>Acceso ejecutivo y credibilidad en cuentas complejas</li>
+          </ul>
+        </div>
+        <div class="partner-box">
+          <h3>Genesys aporta</h3>
+          <ul>
+            <li>Plataforma Cloud CX unificada</li>
+            <li>Omnichannel y AI de ejecución real</li>
+            <li>Journey orchestration y visibilidad end-to-end</li>
+            <li>Automation, routing, workforce y analytics</li>
+          </ul>
+        </div>
+        <div class="partner-box">
+          <h3>Resultado conjunto</h3>
+          <ul>
+            <li>Transformación CX accionable, no solo diagnóstica</li>
+            <li>Pipeline con problemas bien definidos</li>
+            <li>Mayor impacto en KPIs, eficiencia y experiencia</li>
+            <li>Un mejor story para abrir y expandir cuentas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="senales">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Señales que desde Genesys buscamos detectar</h2>
+        </div>
+        <p>
+          Estas señales ayudan a pasar de una conversación de producto a una conversación de problema.
+          Son el puente entre observación y oportunidad real.
+        </p>
+      </div>
+
+      <table class="signals-table" aria-label="Señales de oportunidad">
+        <thead>
+          <tr>
+            <th>Señal</th>
+            <th>¿Qué indica?</th>
+            <th>Oportunidad Genesys</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Muchos canales y muchos proveedores</td>
+            <td>Fragmentación operativa</td>
+            <td>Plataforma unificada y orquestación</td>
+          </tr>
+          <tr>
+            <td>Bots básicos o autoservicio rígido</td>
+            <td>Baja madurez digital</td>
+            <td>Virtual Agent y AI conversacional</td>
+          </tr>
+          <tr>
+            <td>Alto volumen de llamadas repetitivas</td>
+            <td>Fallos de contención</td>
+            <td>Automation y digital containment</td>
+          </tr>
+          <tr>
+            <td>Uso de ServiceNow, Salesforce o ecosistemas complejos</td>
+            <td>Necesidad de integración y visibilidad</td>
+            <td>Experience orchestration + integrations</td>
+          </tr>
+          <tr>
+            <td>Crecimiento digital o expansión regional</td>
+            <td>Escalabilidad en riesgo</td>
+            <td>Cloud CX + AI + workforce</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="casos">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Casos de éxito que ayudan a abrir conversaciones</h2>
+        </div>
+        <p>
+          Usa estos ejemplos como prueba social para aterrizar el valor por industria, complejidad y resultado esperado.
+        </p>
+      </div>
+
+      <div class="cases-toolbar">
+        <button class="chip active" data-filter="all">Todos</button>
+        <button class="chip" data-filter="travel">Travel</button>
+        <button class="chip" data-filter="cpg">CPG</button>
+        <button class="chip" data-filter="utilities">Utilities</button>
+        <button class="chip" data-filter="education">Education</button>
+        <button class="chip" data-filter="banking">Banking</button>
+      </div>
+
+      <div class="cases-grid" id="casesGrid">
+        <article class="case-card" data-category="travel">
+          <div class="case-top">
+            <div class="case-tag">Travel</div>
+            <h3 style="margin:0;">Aeroméxico</h3>
+          </div>
+          <div class="case-body">
+            <div><strong>Reto:</strong> alto volumen de interacciones y necesidad de consistencia entre canales.</div>
+            <div><strong>Valor narrativo:</strong> CX como diferenciador en una industria de alta presión y alta expectativa.</div>
+            <a class="case-link" target="_blank" rel="noopener noreferrer" href="https://www.genesys.com/customer-stories/aeromexico">Ver caso ↗</a>
+          </div>
+        </article>
+
+        <article class="case-card" data-category="cpg">
+          <div class="case-top">
+            <div class="case-tag">CPG</div>
+            <h3 style="margin:0;">Heineken México</h3>
+          </div>
+          <div class="case-body">
+            <div><strong>Reto:</strong> necesidad de mayor visibilidad del cliente y una operación más conectada.</div>
+            <div><strong>Valor narrativo:</strong> CX no solo impacta servicio; también mejora decisiones y operación.</div>
+            <a class="case-link" target="_blank" rel="noopener noreferrer" href="https://www.genesys.com/customer-stories/heineken-mexico">Ver caso ↗</a>
+          </div>
+        </article>
+
+        <article class="case-card" data-category="utilities">
+          <div class="case-top">
+            <div class="case-tag">Utilities</div>
+            <h3 style="margin:0;">Naturgy</h3>
+          </div>
+          <div class="case-body">
+            <div><strong>Reto:</strong> automatizar atención sin deteriorar la experiencia.</div>
+            <div><strong>Valor narrativo:</strong> automatizar bien significa reducir carga y elevar servicio a la vez.</div>
+            <a class="case-link" target="_blank" rel="noopener noreferrer" href="https://www.genesys.com/customer-stories/naturgy">Ver caso ↗</a>
+          </div>
+        </article>
+
+        <article class="case-card" data-category="education">
+          <div class="case-top">
+            <div class="case-tag">Education</div>
+            <h3 style="margin:0;">UNITEC</h3>
+          </div>
+          <div class="case-body">
+            <div><strong>Reto:</strong> gestionar leads e interacciones en journeys de conversión más complejos.</div>
+            <div><strong>Valor narrativo:</strong> CX también impacta revenue, captación y conversión.</div>
+            <a class="case-link" target="_blank" rel="noopener noreferrer" href="https://www.genesys.com/customer-stories/unitec">Ver caso ↗</a>
+          </div>
+        </article>
+
+        <article class="case-card" data-category="banking">
+          <div class="case-top">
+            <div class="case-tag">Banking</div>
+            <h3 style="margin:0;">BAC</h3>
+          </div>
+          <div class="case-body">
+            <div><strong>Reto:</strong> simplificar journeys bancarios y operar a escala con confianza.</div>
+            <div><strong>Valor narrativo:</strong> en banca, CX es confianza, velocidad y resolución sin fricción.</div>
+            <a class="case-link" target="_blank" rel="noopener noreferrer" href="https://www.genesys.com/customer-stories/bac">Ver caso ↗</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="preguntas">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <h2>Preguntas que abren oportunidades</h2>
+        </div>
+        <p>
+          Estas preguntas están diseñadas para detectar fricción, exponer problemas invisibles y mover la conversación hacia diagnóstico, no pitch.
+        </p>
+      </div>
+
+      <div class="questions">
+        <div class="q-item"><span class="q-num">1</span><div>¿Qué pasa hoy cuando un cliente cambia de canal durante su journey?</div></div>
+        <div class="q-item"><span class="q-num">2</span><div>¿Qué porcentaje de interacciones digitales termina escalando a llamada?</div></div>
+        <div class="q-item"><span class="q-num">3</span><div>¿Cuántas veces un cliente tiene que repetir información antes de resolver?</div></div>
+        <div class="q-item"><span class="q-num">4</span><div>¿Cómo conectan hoy marketing, ventas y servicio en una misma experiencia?</div></div>
+        <div class="q-item"><span class="q-num">5</span><div>¿Dónde tienen más visibilidad: en interacciones individuales o en journeys completos?</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="cta-final">
+    <div class="container">
+      <div class="cta">
+        <div class="cta-grid">
+          <div>
+            <div class="eyebrow" style="margin-bottom: 12px;">Call to action</div>
+            <h2 style="margin:0; font-size: clamp(1.8rem, 3vw, 3rem); line-height:1.05; letter-spacing:-0.03em;">No buscamos leads.<br>Buscamos problemas que el cliente aún no ve.</h2>
+            <p style="color: var(--muted); max-width: 760px; margin: 16px 0 0;">
+              Si tienes cuentas con demasiados canales, mala experiencia, bots que no resuelven o una operación fragmentada,
+              ahí puede haber una oportunidad real para Deloitte + Genesys.
+            </p>
+            <ul>
+              <li>Busquemos cuentas con fricción visible/o invisible</li>
+              <li>Busquemos cuentas con crecimiento digital y complejidad entre sistemas</li>
+              <li>Busquemos cuentas donde el cliente sienta esfuerzo donde no deberia haberlo.</li>
+            </ul>
+          </div>
+          <div class="card" style="background: rgba(255,255,255,0.08);">
+            <h3 style="margin-top:0;">Mensaje final</h3>
+            <p style="margin-bottom: 16px;">Tus clientes ya viven en una experiencia conectada. Muchas empresas todavía operan como si no fuera así.</p>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <button class="btn btn-primary" id="copyPitch">Copiar one-liner</button>
+              <a class="btn btn-secondary" href="#top">Volver arriba</a>
+            </div>
+            <p id="copyFeedback" style="margin-top:12px; color: var(--success); display:none;">Texto copiado.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-line">
+      <span>Landing page infomativa · Genesys × Deloitte · Abril 2026</span>
+      <span>Diseñada para sesiones ejecutivas y activación de pipeline conjunto</span>
+    </div>
+  </footer>
+
+  <script>
+    const chips = document.querySelectorAll('.chip');
+    const cards = document.querySelectorAll('.case-card');
+    const scrollSignals = document.getElementById('scrollSignals');
+    const copyPitch = document.getElementById('copyPitch');
+    const copyFeedback = document.getElementById('copyFeedback');
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        const filter = chip.dataset.filter;
+
+        cards.forEach(card => {
+          const match = filter === 'all' || card.dataset.category === filter;
+          card.classList.toggle('hidden', !match);
+        });
+      });
+    });
+
+    scrollSignals?.addEventListener('click', () => {
+      document.getElementById('senales')?.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    copyPitch?.addEventListener('click', async () => {
+      const text = 'No se trata de más canales. Se trata de conectar cada interacción para eliminar fricción, anticipar necesidades y crear una experiencia real de punta a punta.';
+      try {
+        await navigator.clipboard.writeText(text);
+        copyFeedback.style.display = 'block';
+        setTimeout(() => copyFeedback.style.display = 'none', 1800);
+      } catch (e) {
+        alert(text);
+      }
+    });
+
+    const sections = ['problema','solucion','alianza','senales','casos','preguntas'];
+    const navLinks = [...document.querySelectorAll('.nav-links a')];
+    const onScroll = () => {
+      const y = window.scrollY + 120;
+      let current = '';
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= y) current = id;
+      });
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href')?.replace('#','');
+        link.classList.toggle('active', href === current);
+      });
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>
